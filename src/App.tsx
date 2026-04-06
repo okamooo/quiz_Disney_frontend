@@ -1,37 +1,23 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-
-// データの型を定義（Javaエンジニアなら型定義は必須！）
-interface Quiz {
-  id: number;
-  question: string;
-  answer: string;
-}
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import './App.css';
 
 function App() {
-  const [quiz, setQuiz] = useState<Quiz | null>(null);
-
-  useEffect(() => {
-    // Spring BootのAPIを叩く
-    fetch('http://localhost:8080/api/v1/quiz/test')
-      .then(res => res.json())
-      .then(data => setQuiz(data))
-      .catch(err => console.error("通信エラー:", err));
-  }, []);
-
   return (
-    <div className="App">
-      <h1>Quiz App Test</h1>
-      {quiz ? (
-        <div className="quiz-card">
-          <p><strong>問題:</strong> {quiz.question}</p>
-          <p><strong>答え:</strong> {quiz.answer}</p>
-        </div>
-      ) : (
-        <p>読み込み中...</p>
-      )}
-    </div>
-  )
+    <Router>
+      <div className="App">
+        <Routes>
+          {/* デフォルトルートをログイン画面に設定 */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          
+          {/* 将来的にダッシュボードなどを追加する場合はここに追加 */}
+          {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
+        </Routes>
+      </div>
+    </Router>
+  );
 }
-
-export default App
+export default App;
