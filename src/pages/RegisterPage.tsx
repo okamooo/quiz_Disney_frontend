@@ -13,11 +13,11 @@ const RegisterPage : React.FC = () => {
         setError(null);
         try{
             const response = await register(request);
-           alert(`${response.userId}さん ようこそ、夢と魔法の国へ！ \n${response.messeage}`);
+           alert(`${response.loginId}さん ようこそ、夢と魔法の国へ！ \n${response.messeage}`);
             navigate('/login');
         }catch(err){
             console.error('登録エラー;', err);
-            setError('登録に失敗しました。ユーザーIDが既に存在している可能性があります。');
+            setError('登録に失敗しました。ログインIDが既に存在している可能性があります。');
         }finally{
             setIsLoading(false);
         }
@@ -29,13 +29,13 @@ const RegisterPage : React.FC = () => {
             <form onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
-                const userId = formData.get('userId') as string;
+                const loginId = formData.get('loginId') as string;
                 const password = formData.get('password') as string;
-                handleRegister({ userId, password });
+                handleRegister({ loginId, password });
             }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <div>
-                    <label htmlFor="userId">ユーザーID:</label>
-                    <input id="userId" name="userId" type="text" required />
+                    <label htmlFor="loginId">ログインID:</label>
+                    <input id="loginId" name="loginId" type="text" required />
                 </div>
                 <div>
                     <label htmlFor="password">パスワード:</label>

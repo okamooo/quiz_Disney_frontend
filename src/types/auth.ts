@@ -1,18 +1,18 @@
 export interface LoginRequest {
-  userId: string;
+  loginId: string;
   password: string;
 }
 
 export interface LoginResponse {
-  userId: string;
+  loginId: string;
   messeage: string; // バックエンドのDTOの綴りに合わせる
 
 }export interface RegisterRequest {
-  userId: string;
+  loginId: string;
   password: string;
 }
 
 export interface RegisterResponse {
-  userId: string;
+  loginId: string;
   messeage: string; // バックエンドのDTOの綴りに合わせる
 }

@@ -8,13 +8,13 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin, isLoading }) => {
-  const [userId, setUserId] = useState('');
+  const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin({ userId, password });
+    onLogin({ loginId, password });
   };
 
   const handleRegisterClick = () => {
@@ -24,12 +24,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, isLoading }) => {
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       <div>
-        <label htmlFor="userId">ユーザーID:</label>
+        <label htmlFor="loginId">ログインID:</label>
         <input
-          id="userId"
+          id="loginId"
           type="text"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
+          value={loginId}
+          onChange={(e) => setLoginId(e.target.value)}
           required
         />
       </div>

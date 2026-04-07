@@ -7,7 +7,7 @@ interface RegisterFormProps {
 }
 
 const RegisterForm : React.FC<RegisterFormProps> = ({onRegister,isLoading}) => {
-    const [userId,setUserId] = useState('');
+    const [loginId,setLoginId] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
 
@@ -17,14 +17,14 @@ const RegisterForm : React.FC<RegisterFormProps> = ({onRegister,isLoading}) => {
             alert('パスワードが一致しません。');
             return;
         }
-        onRegister({userId,password});
+        onRegister({loginId,password});
     }
 
     return (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div>
-                <label htmlFor="userId">ユーザーID:</label>
-                <input id="userId" type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
+                <label htmlFor="loginId">ログインID:</label>
+                <input id="loginId" type="text" value={loginId} onChange={(e) => setLoginId(e.target.value)} required />
             </div>
             <div>
                 <label htmlFor="password">パスワード:</label>

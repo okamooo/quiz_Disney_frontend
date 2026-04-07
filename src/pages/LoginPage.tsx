@@ -12,7 +12,7 @@ const LoginPage: React.FC = () => {
     setError(null);
     try {
       const response = await login(request);
-      alert(`ログイン成功！ ようこそ ${response.userId} さん\nメッセージ: ${response.messeage}`);
+      alert(`ログイン成功！ ようこそ ${response.loginId} さん\nメッセージ: ${response.messeage}`);
     } catch (err) {
       console.error('ログインエラー:', err);
       setError('ログインに失敗しました。サーバーが起動しているか確認してください。');
