@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RegisterRequest } from '../types/auth';
+import { RegisterRequest } from '../types/authModels';
 import { register } from '../api/auth';
 
 const RegisterPage : React.FC = () => {
@@ -29,13 +29,18 @@ const RegisterPage : React.FC = () => {
             <form onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
-                const loginId = formData.get('loginId') as string;
+                const userId = formData.get('userId') as string;
+                const email = formData.get('email') as string;
                 const password = formData.get('password') as string;
-                handleRegister({ loginId, password });
+                handleRegister({ userId, email, password });
             }} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <div>
                     <label htmlFor="loginId">ログインID:</label>
-                    <input id="loginId" name="loginId" type="text" required />
+                    <input id="userId" name="userId" type="text" required />
+                </div>
+                <div>
+                    <label htmlFor="email">メールアドレス:</label>
+                    <input id="email" name="email" type="email" required />
                 </div>
                 <div>
                     <label htmlFor="password">パスワード:</label>

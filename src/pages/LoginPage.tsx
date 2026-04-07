@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import { login } from '../api/auth';
-import { LoginRequest } from '../types/auth';
+import { LoginRequest } from '../types/authModels';
 
 const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);

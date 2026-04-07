@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../types/auth';
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../types/authModels';
 
 const API_BASE_URL = 'http://localhost:8080/api/v1/quiz';
 
@@ -15,7 +15,17 @@ export const login = async (request: LoginRequest): Promise<LoginResponse> => {
     throw new Error('ログインに失敗しました');
   }
 
-  return response.json();
+  const data = await response.json() as LoginResponse;
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return {
+    ...data,
+    loginId: request.loginId,
+    messeage: data.message,
+  };
 };
 
 export const register = async (request: RegisterRequest): Promise<RegisterResponse> => {
@@ -31,5 +41,15 @@ export const register = async (request: RegisterRequest): Promise<RegisterRespon
     throw new Error('登録に失敗しました');
   }
 
-  return response.json();
+  const data = await response.json() as RegisterResponse;
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return {
+    ...data,
+    loginId: request.userId,
+    messeage: data.message,
+  };
 };

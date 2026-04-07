@@ -1,5 +1,5 @@
 import React ,{useState} from "react";
-import { RegisterRequest } from "../types/auth";
+import { RegisterRequest } from "../types/authModels";
 
 interface RegisterFormProps {
     onRegister : (request : RegisterRequest) => void;
@@ -7,7 +7,8 @@ interface RegisterFormProps {
 }
 
 const RegisterForm : React.FC<RegisterFormProps> = ({onRegister,isLoading}) => {
-    const [loginId,setLoginId] = useState('');
+    const [userId,setUserId] = useState('');
+    const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfirmPassword] = useState('');
 
@@ -17,14 +18,18 @@ const RegisterForm : React.FC<RegisterFormProps> = ({onRegister,isLoading}) => {
             alert('パスワードが一致しません。');
             return;
         }
-        onRegister({loginId,password});
+        onRegister({userId,email,password});
     }
 
     return (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div>
                 <label htmlFor="loginId">ログインID:</label>
-                <input id="loginId" type="text" value={loginId} onChange={(e) => setLoginId(e.target.value)} required />
+                <input id="userId" type="text" value={userId} onChange={(e) => setUserId(e.target.value)} required />
+            </div>
+            <div>
+                <label htmlFor="email">メールアドレス:</label>
+                <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div>
                 <label htmlFor="password">パスワード:</label>
