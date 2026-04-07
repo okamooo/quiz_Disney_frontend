@@ -1,17 +1,16 @@
-import React from 'react';
-import { LearningHistory } from '../types/home';
+import { LearningHistory } from "../types/home";
 
 interface LearningHistoryListProps {
   learningHistories: LearningHistory[];
 }
 
 const formatPlayedAt = (playedAt: string) => {
-  return new Date(playedAt).toLocaleString('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
+  return new Date(playedAt).toLocaleString("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 };
 
