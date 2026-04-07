@@ -7,7 +7,7 @@ interface LoginFormProps {
   isLoading: boolean;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin, isLoading }) => {
+const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();

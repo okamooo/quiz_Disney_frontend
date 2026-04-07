@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { QuizModeOption } from '../types/home';
+import { useMemo } from "react";
+import { QuizModeOption } from "../types/home";
 
 interface QuizModeSectionProps {
   quizModes: QuizModeOption[];
@@ -9,15 +9,17 @@ interface QuizModeSectionProps {
   onQuizStart: () => void;
 }
 
-const QuizModeSection: React.FC<QuizModeSectionProps> = ({
+const QuizModeSection = ({
   quizModes,
   selectedQuizMode,
   hasAvailableQuiz,
   onQuizModeChange,
   onQuizStart,
-}) => {
+}: QuizModeSectionProps) => {
   const selectedQuizModeData = useMemo(() => {
-    return quizModes.find((quizModeOption) => quizModeOption.quizMode === selectedQuizMode);
+    return quizModes.find(
+      (quizModeOption) => quizModeOption.quizMode === selectedQuizMode,
+    );
   }, [quizModes, selectedQuizMode]);
 
   return (
@@ -35,12 +37,14 @@ const QuizModeSection: React.FC<QuizModeSectionProps> = ({
             <button
               key={quizModeOption.quizMode}
               type="button"
-              className={`quiz-mode-button ${isSelected ? 'selected' : ''}`}
+              className={`quiz-mode-button ${isSelected ? "selected" : ""}`}
               onClick={() => onQuizModeChange(quizModeOption.quizMode)}
             >
-              <span className="quiz-mode-label">{quizModeOption.quizModeLabel}</span>
+              <span className="quiz-mode-label">
+                {quizModeOption.quizModeLabel}
+              </span>
               <span className="quiz-mode-status">
-                {quizModeOption.isAvailable ? '利用可能' : '準備中'}
+                {quizModeOption.isAvailable ? "利用可能" : "準備中"}
               </span>
             </button>
           );
@@ -51,7 +55,7 @@ const QuizModeSection: React.FC<QuizModeSectionProps> = ({
         <div>
           <p className="quiz-start-title">現在の選択</p>
           <p className="quiz-start-value">
-            {selectedQuizModeData?.quizModeLabel ?? '未選択'}
+            {selectedQuizModeData?.quizModeLabel ?? "未選択"}
           </p>
         </div>
 

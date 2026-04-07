@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RegisterRequest } from '../types/authModels';
 import { register } from '../api/auth';
 
-const RegisterPage : React.FC = () => {
+const RegisterPage = () => {
     const [isLoading,setIsLoading] = useState(false);
     const [error,setError] = useState<string | null>(null);
     const navigate = useNavigate();

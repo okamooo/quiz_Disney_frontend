@@ -5,10 +5,10 @@ interface HomeHeaderProps {
   userName: string;
 }
 
-const HomeHeader: React.FC<HomeHeaderProps> = ({
+const HomeHeader = ({
   userId,
   userName,
-}) => {
+}: HomeHeaderProps) => {
   return (
     <section className="home-card">
       <p className="home-user-id">ユーザーID: {userId}</p>
