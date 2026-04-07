@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import { login } from '../api/auth';
+
 import { LoginRequest } from '../types/auth';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (request: LoginRequest) => {
     setIsLoading(true);
     setError(null);
-    try {
-      const response = await login(request);
-      alert(`ログイン成功！ ようこそ ${response.loginId} さん\nメッセージ: ${response.messeage}`);
+    try {      
+      await login(request);
+      navigate('/home');
     } catch (err) {
       console.error('ログインエラー:', err);
       setError('ログインに失敗しました。サーバーが起動しているか確認してください。');

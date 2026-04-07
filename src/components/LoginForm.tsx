@@ -48,7 +48,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, isLoading }) => {
       </button>
 
       <div style={{ marginTop: '10px' ,textAlign : 'center' , fontSize:'10px'}}>
-        <button onClick={handleRegisterClick}>
+        <button type="button" onClick={handleRegisterClick}>
           アカウントをお持ちでない方はこちら
         </button>
       </div>
