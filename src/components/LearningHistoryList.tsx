@@ -15,9 +15,9 @@ const formatPlayedAt = (playedAt: string) => {
   });
 };
 
-const LearningHistoryList: React.FC<LearningHistoryListProps> = ({
+const LearningHistoryList = ({
   learningHistories,
-}) => {
+}: LearningHistoryListProps) => {
   return (
     <section className="home-card">
       <div className="home-section-header">

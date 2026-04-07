@@ -45,7 +45,7 @@ const mockHomeData: HomeData = {
   ],
 };
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   const [homeData] = useState<HomeData>(mockHomeData);
   const [selectedQuizMode, setSelectedQuizMode] = useState<string>(
     mockHomeData.quizModes[0]?.quizMode ?? '',

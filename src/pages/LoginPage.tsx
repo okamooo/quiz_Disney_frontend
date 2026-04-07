@@ -5,7 +5,7 @@ import { login } from '../api/auth';
 import { LoginRequest } from '../types/auth';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
