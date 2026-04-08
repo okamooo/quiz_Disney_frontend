@@ -1,14 +1,9 @@
-import React from 'react';
-
 interface HomeHeaderProps {
   userId: string;
   userName: string;
 }
 
-const HomeHeader = ({
-  userId,
-  userName,
-}: HomeHeaderProps) => {
+const HomeHeader = ({ userId, userName }: HomeHeaderProps) => {
   return (
     <section className="home-card">
       <p className="home-user-id">ユーザーID: {userId}</p>
