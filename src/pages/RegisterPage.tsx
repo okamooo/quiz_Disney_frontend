@@ -20,7 +20,7 @@ const RegisterPage = () => {
     } catch (err) {
       console.error("登録エラー;", err);
       setError(
-        "登録に失敗しました。ログインIDが既に存在している可能性があります。",
+        "登録に失敗しました。", //エラーに対応したエラーメッセージを実装予定
       );
     } finally {
       setIsLoading(false);
