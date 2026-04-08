@@ -19,7 +19,7 @@ const LoginPage = () => {
     } catch (err) {
       console.error("ログインエラー:", err);
       setError(
-        "ログインに失敗しました。サーバーが起動しているか確認してください。",
+        "ログインに失敗しました。", //エラーに対応したエラーメッセージを表示予定
       );
     } finally {
       setIsLoading(false);
