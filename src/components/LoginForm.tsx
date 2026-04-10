@@ -13,8 +13,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const handleSubmit = (e: { preventDefault: () => void }) => {    e.preventDefault();
     onLogin({ loginId, password });
   };
 
