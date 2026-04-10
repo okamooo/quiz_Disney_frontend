@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import HomeHeader from "../components/HomeHeader";
 import LearningHistoryList from "../components/LearningHistoryList";
 import QuizModeSection from "../components/QuizModeSection";

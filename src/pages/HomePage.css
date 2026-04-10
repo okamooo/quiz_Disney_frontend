@@ -102,14 +102,14 @@
 
 .quiz-start-button {
   min-width: 180px;
-  background: #0f8b8d;
-  color: #ffffff;
+  background:  #0d7a7c;
+  color: #fff;
 }
 
 .quiz-start-button:disabled {
   cursor: not-allowed;
   background: #b8c8d1;
-  color: #f5f7f8;
+  color:#4a4a4a;
 }
 
 .history-list {
