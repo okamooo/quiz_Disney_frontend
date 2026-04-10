@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterRequest } from "../types/authModels";
+import styles from "./RegisterForm.module.css";
 
 interface RegisterFormProps {
   onRegister: (request: RegisterRequest) => void;
@@ -17,7 +18,7 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒä¸€è‡´ã—ã¾ã›ã‚“ã€‚");
+      alert("ƒpƒXƒ[ƒh‚ªˆê’v‚µ‚Ü‚¹‚ñB");
       return;
     }
     onRegister({ userId, email, password });
@@ -27,40 +28,12 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
     navigate("/login");
   };
 
-  const inputStyle = {
-    padding: "10px",
-    width: "100%",
-    boxSizing: "border-box" as const,
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  };
-
-  const labelStyle = {
-    fontSize: "14px",
-    fontWeight: "bold",
-  };
-
-  const fieldContainerStyle = {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: "5px",
-  };
-
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        maxWidth: "400px",
-        margin: "0 auto",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        <div style={fieldContainerStyle}>
-          <label htmlFor="userId" style={labelStyle}>
-            ãƒ¦ãƒ¼ã‚¶ãƒ¼ID
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.fields}>
+        <div className={styles.field}>
+          <label htmlFor="userId" className={styles.label}>
+            ƒ†[ƒU[ID
           </label>
           <input
             id="userId"
@@ -68,13 +41,13 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
 
-        <div style={fieldContainerStyle}>
-          <label htmlFor="email" style={labelStyle}>
-            ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
+        <div className={styles.field}>
+          <label htmlFor="email" className={styles.label}>
+            ƒ[ƒ‹ƒAƒhƒŒƒX
           </label>
           <input
             id="email"
@@ -82,13 +55,13 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
 
-        <div style={fieldContainerStyle}>
-          <label htmlFor="password" style={labelStyle}>
-            ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
+        <div className={styles.field}>
+          <label htmlFor="password" className={styles.label}>
+            ƒpƒXƒ[ƒh
           </label>
           <input
             id="password"
@@ -96,13 +69,13 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
 
-        <div style={fieldContainerStyle}>
-          <label htmlFor="confirmPassword" style={labelStyle}>
-            ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ï¼ˆç¢ºèªï¼‰
+        <div className={styles.field}>
+          <label htmlFor="confirmPassword" className={styles.label}>
+            ƒpƒXƒ[ƒhiŠm”Fj
           </label>
           <input
             id="confirmPassword"
@@ -110,7 +83,7 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
       </div>
@@ -118,33 +91,18 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
       <button
         type="submit"
         disabled={isLoading}
-        style={{
-          padding: "12px",
-          cursor: "pointer",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          fontWeight: "bold",
-        }}
+        className={styles.submitButton}
       >
-        {isLoading ? "ç™»éŒ²ä¸­..." : "ç™»éŒ²"}
+        {isLoading ? "“o˜^’†..." : "“o˜^"}
       </button>
 
-      <div style={{ textAlign: "center" }}>
+      <div className={styles.footer}>
         <button
           type="button"
           onClick={handleLoginClick}
-          style={{
-            background: "none",
-            border: "none",
-            color: "#007bff",
-            cursor: "pointer",
-            textDecoration: "underline",
-            fontSize: "12px",
-          }}
+          className={styles.linkButton}
         >
-          æ—¢ã«ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã‚’ãŠæŒã¡ã®æ–¹ã¯ã“ã¡ã‚‰
+          Šù‚ÉƒAƒJƒEƒ“ƒg‚ğ‚¨‚¿‚Ì•û‚Í‚±‚¿‚ç
         </button>
       </div>
     </form>

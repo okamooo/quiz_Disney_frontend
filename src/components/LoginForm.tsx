@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../types/auth";
+import styles from "./LoginForm.module.css";
 
 interface LoginFormProps {
   onLogin: (request: LoginRequest) => void;
@@ -22,23 +23,11 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        maxWidth: "400px",
-        margin: "0 auto",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label
-            htmlFor="loginId"
-            style={{ fontSize: "14px", fontWeight: "bold" }}
-          >
-            ãƒ¦ãƒ¼ã‚¶ãƒ¼ID or ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.fields}>
+        <div className={styles.field}>
+          <label htmlFor="loginId" className={styles.label}>
+            ƒ†[ƒU[ID or ƒ[ƒ‹ƒAƒhƒŒƒX
           </label>
           <input
             id="loginId"
@@ -46,22 +35,13 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
             value={loginId}
             onChange={(e) => setLoginId(e.target.value)}
             required
-            style={{
-              padding: "10px",
-              width: "100%",
-              boxSizing: "border-box",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            className={styles.input}
           />
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label
-            htmlFor="password"
-            style={{ fontSize: "14px", fontWeight: "bold" }}
-          >
-            ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
+        <div className={styles.field}>
+          <label htmlFor="password" className={styles.label}>
+            ƒpƒXƒ[ƒh
           </label>
           <input
             id="password"
@@ -69,13 +49,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{
-              padding: "10px",
-              width: "100%",
-              boxSizing: "border-box",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            className={styles.input}
           />
         </div>
       </div>
@@ -83,33 +57,18 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
       <button
         type="submit"
         disabled={isLoading}
-        style={{
-          padding: "12px",
-          cursor: "pointer",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          fontWeight: "bold",
-        }}
+        className={styles.submitButton}
       >
-        {isLoading ? "ãƒ­ã‚°ã‚¤ãƒ³ä¸­..." : "ãƒ­ã‚°ã‚¤ãƒ³"}
+        {isLoading ? "ƒƒOƒCƒ“’†..." : "ƒƒOƒCƒ“"}
       </button>
 
-      <div style={{ textAlign: "center" }}>
+      <div className={styles.footer}>
         <button
           type="button"
           onClick={handleRegisterClick}
-          style={{
-            background: "none",
-            border: "none",
-            color: "#007bff",
-            cursor: "pointer",
-            textDecoration: "underline",
-            fontSize: "12px",
-          }}
+          className={styles.linkButton}
         >
-          ã‚¢ã‚«ã‚¦ãƒ³ãƒˆã‚’ãŠæŒã¡ã§ãªã„æ–¹ã¯ã“ã¡ã‚‰
+          ƒAƒJƒEƒ“ƒg‚ð‚¨Ž‚¿‚Å‚È‚¢•û‚Í‚±‚¿‚ç
         </button>
       </div>
     </form>
