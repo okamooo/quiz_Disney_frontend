@@ -1,42 +1,43 @@
-import React, { useMemo, useState } from 'react';
-import HomeHeader from '../components/HomeHeader';
-import LearningHistoryList from '../components/LearningHistoryList';
-import QuizModeSection from '../components/QuizModeSection';
-import './HomePage.css';
-import { HomeData, QuizModeOption } from '../types/home';
+import { useMemo, useState } from "react";
+import HomeHeader from "../components/HomeHeader";
+import LearningHistoryList from "../components/LearningHistoryList";
+import QuizModeSection from "../components/QuizModeSection";
+import "./HomePage.css";
+import { HomeData, QuizModeOption } from "../types/home";
+import { useNavigate } from "react-router-dom";
 
 // API 連携前でも画面確認できるように、まずはモックデータを置いています。
 const mockHomeData: HomeData = {
-  userId: 'user-001',
-  userName: 'Lilo',
-  welcomeMessage: '',
+  userId: "user-001",
+  userName: "Lilo",
+  welcomeMessage: "",
   hasAvailableQuiz: true,
   quizModes: [
     {
-      quizMode: 'choice',
-      quizModeLabel: '選択問題',
-      quizStartUrl: '/quiz/choice',
+      quizMode: "choice",
+      quizModeLabel: "選択問題",
+      quizStartUrl: "/quiz/choice",
       isAvailable: true,
     },
     {
-      quizMode: 'sort',
-      quizModeLabel: '並び替え問題',
-      quizStartUrl: '/quiz/sort',
+      quizMode: "sort",
+      quizModeLabel: "並び替え問題",
+      quizStartUrl: "/quiz/sort",
       isAvailable: false,
     },
   ],
   learningHistories: [
     {
-      historyId: 'history-001',
-      playedAt: '2026-04-07T09:30:00+09:00',
+      historyId: "history-001",
+      playedAt: "2026-04-07T09:30:00+09:00",
       solvedCount: 10,
       correctCount: 8,
       incorrectCount: 2,
       accuracyRate: 80,
     },
     {
-      historyId: 'history-002',
-      playedAt: '2026-04-06T20:15:00+09:00',
+      historyId: "history-002",
+      playedAt: "2026-04-06T20:15:00+09:00",
       solvedCount: 12,
       correctCount: 9,
       incorrectCount: 3,
@@ -46,10 +47,13 @@ const mockHomeData: HomeData = {
 };
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [homeData] = useState<HomeData>(mockHomeData);
   const [selectedQuizMode, setSelectedQuizMode] = useState<string>(
-    mockHomeData.quizModes[0]?.quizMode ?? '',
+    mockHomeData.quizModes[0]?.quizMode ?? "",
   );
+  // メニューの開閉状態を管理
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const selectedQuizModeData = useMemo<QuizModeOption | undefined>(() => {
     return homeData.quizModes.find(
@@ -70,12 +74,42 @@ const HomePage = () => {
     );
   };
 
+  const handleLogout = () => {
+    // ログアウト処理を実装予定
+    alert("ログアウトしました。");
+    navigate("/login");
+  };
+
   return (
     <main className="home-page">
-      <HomeHeader
-        userId={homeData.userId}
-        userName={homeData.userName}
-      />
+      {/* ハンバーガーメニュー */}
+      <div className="hamburger-menu">
+        <button
+          className={`hamburger-button ${isMenuOpen ? "open" : ""}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {isMenuOpen && (
+          <div className="menu-dropdown">
+            <div className="menu-user-info">
+              <p className="menu-label">ログインユーザー</p>
+              <p className="menu-value">
+                {homeData.userName}({homeData.userId})
+              </p>
+            </div>
+            <hr />
+            <button className="menu-item" onClick={handleLogout}>
+              ログアウト
+            </button>
+          </div>
+        )}
+      </div>
+
+      <HomeHeader userId={homeData.userId} userName={homeData.userName} />
 
       <QuizModeSection
         quizModes={homeData.quizModes}

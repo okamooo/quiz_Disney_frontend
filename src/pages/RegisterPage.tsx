@@ -26,9 +26,29 @@ const RegisterPage = () => {
       setIsLoading(false);
     }
   };
+
+  const inputStyle = {
+    padding: "10px",
+    width: "100%",
+    boxSizing: "border-box" as const,
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+  };
+
+  const labelStyle = {
+    fontSize: "14px",
+    fontWeight: "bold",
+  };
+
+  const fieldContainerStyle = {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "5px",
+  };
+
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}>
-      <h2>ユーザー登録</h2>
+    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
+      <h1>ユーザー登録</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form
         onSubmit={(e) => {
@@ -39,23 +59,69 @@ const RegisterPage = () => {
           const password = formData.get("password") as string;
           handleRegister({ userId, email, password });
         }}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
       >
-        <div>
-          <label htmlFor="loginId">ログインID:</label>
-          <input id="userId" name="userId" type="text" required />
+        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+          <div style={fieldContainerStyle}>
+            <label htmlFor="userId" style={labelStyle}>
+              ログインID
+            </label>
+            <input id="userId" name="userId" type="text" required style={inputStyle} />
+          </div>
+          <div style={fieldContainerStyle}>
+            <label htmlFor="email" style={labelStyle}>
+              メールアドレス
+            </label>
+            <input id="email" name="email" type="email" required style={inputStyle} />
+          </div>
+          <div style={fieldContainerStyle}>
+            <label htmlFor="password" style={labelStyle}>
+              パスワード
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              style={inputStyle}
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="email">メールアドレス:</label>
-          <input id="email" name="email" type="email" required />
-        </div>
-        <div>
-          <label htmlFor="password">パスワード:</label>
-          <input id="password" name="password" type="password" required />
-        </div>
-        <button type="submit" disabled={isLoading}>
+        <button
+          type="submit"
+          disabled={isLoading}
+          style={{
+            padding: "12px",
+            cursor: "pointer",
+            backgroundColor: "#007bff",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            fontWeight: "bold",
+          }}
+        >
           {isLoading ? "登録中..." : "登録"}
         </button>
+        <div style={{ textAlign: "center" }}>
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#007bff",
+              cursor: "pointer",
+              textDecoration: "underline",
+              fontSize: "12px",
+            }}
+          >
+            既にアカウントをお持ちの方はこちら
+          </button>
+        </div>
       </form>
     </div>
   );
