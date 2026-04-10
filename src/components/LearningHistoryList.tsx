@@ -1,4 +1,4 @@
-import { LearningHistory } from "../types/home";
+﻿import { LearningHistory } from "../types/home";
 
 interface LearningHistoryListProps {
   learningHistories: LearningHistory[];
@@ -20,7 +20,9 @@ const LearningHistoryList = ({
   return (
     <section className="home-card">
       <div className="home-section-header">
-        <h2>学習履歴</h2>
+<h2 className="section-title" aria-label="学習履歴">
+  📊 学習履歴
+</h2>
         <p>これまでの学習結果を一覧で確認できます。</p>
       </div>
 

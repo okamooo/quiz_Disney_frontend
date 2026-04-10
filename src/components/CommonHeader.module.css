@@ -1,0 +1,36 @@
+﻿.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(191, 209, 220, 0.95);
+  background:
+    linear-gradient(135deg, rgba(237, 248, 252, 0.96), rgba(227, 244, 249, 0.96));
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(18, 52, 77, 0.08);
+}
+
+.inner {
+  width: min(960px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.menuArea {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding: 9px 0;
+    gap: 10px;
+  }
+}

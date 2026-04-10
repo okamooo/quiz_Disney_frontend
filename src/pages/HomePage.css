@@ -1,9 +1,11 @@
-.home-page {
+﻿.home-page {
+  --section-gap: 30px;
+  --header-offset: 74px;
   width: min(960px, calc(100vw - 32px));
   margin: 0 auto;
-  padding: 32px 0 48px;
+  padding: calc(var(--header-offset) + var(--section-gap)) 0 48px;
   display: grid;
-  gap: 24px;
+  gap: var(--section-gap);
 }
 
 .home-card {
@@ -15,26 +17,22 @@
   text-align: left;
 }
 
-.home-user-id {
-  margin: 0 0 8px;
-  font-size: 0.95rem;
-  color: #4f6b7a;
-}
-
-.home-title {
-  margin: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: #12344d;
-}
-
-.home-subtitle {
-  margin: 12px 0 0;
-  color: #45606d;
-}
-
 .home-section-header h2 {
   margin: 0;
   color: #12344d;
+}
+
+.section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .home-section-header p {
@@ -145,6 +143,11 @@
 }
 
 @media (max-width: 640px) {
+  .home-page {
+    --section-gap: 24px;
+    --header-offset: 72px;
+  }
+
   .quiz-start-panel,
   .history-row {
     flex-direction: column;

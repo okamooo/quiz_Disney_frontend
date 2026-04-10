@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react';
-import HomeHeader from '../components/HomeHeader';
+﻿import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CommonHeader from '../components/CommonHeader';
 import LearningHistoryList from '../components/LearningHistoryList';
 import QuizModeSection from '../components/QuizModeSection';
 import './HomePage.css';
@@ -46,6 +47,7 @@ const mockHomeData: HomeData = {
 };
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [homeData] = useState<HomeData>(mockHomeData);
   const [selectedQuizMode, setSelectedQuizMode] = useState<string>(
     mockHomeData.quizModes[0]?.quizMode ?? '',
@@ -70,11 +72,17 @@ const HomePage = () => {
     );
   };
 
+  const handleLogout = () => {
+    alert('ログアウトしました。');
+    navigate('/login');
+  };
+
   return (
     <main className="home-page">
-      <HomeHeader
+      <CommonHeader
         userId={homeData.userId}
         userName={homeData.userName}
+        onLogout={handleLogout}
       />
 
       <QuizModeSection

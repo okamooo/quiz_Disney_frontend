@@ -1,7 +1,9 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RegisterRequest } from "../types/authModels";
+import RegisterForm from "../components/RegisterForm";
 import { register } from "../api/auth";
+import styles from "./AuthPage.module.css";
+import { RegisterRequest } from "../types/authModels";
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,45 +21,20 @@ const RegisterPage = () => {
       navigate("/login");
     } catch (err) {
       console.error("登録エラー;", err);
-      setError(
-        "登録に失敗しました。", //エラーに対応したエラーメッセージを実装予定
-      );
+      setError("登録に失敗しました。");
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}>
-      <h2>ユーザー登録</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          const userId = formData.get("userId") as string;
-          const email = formData.get("email") as string;
-          const password = formData.get("password") as string;
-          handleRegister({ userId, email, password });
-        }}
-        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-      >
-        <div>
-          <label htmlFor="loginId">ログインID:</label>
-          <input id="userId" name="userId" type="text" required />
-        </div>
-        <div>
-          <label htmlFor="email">メールアドレス:</label>
-          <input id="email" name="email" type="email" required />
-        </div>
-        <div>
-          <label htmlFor="password">パスワード:</label>
-          <input id="password" name="password" type="password" required />
-        </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "登録中..." : "登録"}
-        </button>
-      </form>
-    </div>
+    <main className={styles.authPage}>
+      <section className={styles.card}>
+        <h1 className={styles.title}>ユーザー登録</h1>
+        {error && <p className={styles.error}>{error}</p>}
+        <RegisterForm onRegister={handleRegister} isLoading={isLoading} />
+      </section>
+    </main>
   );
 };
 
