@@ -1,9 +1,9 @@
-import { useState } from "react";
+﻿import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import { login } from "../api/auth";
-
+import styles from "./AuthPage.module.css";
 import { LoginRequest } from "../types/auth";
-import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,20 +18,20 @@ const LoginPage = () => {
       navigate("/home");
     } catch (err) {
       console.error("ログインエラー:", err);
-      setError(
-        "ログインに失敗しました。", //エラーに対応したエラーメッセージを表示予定
-      );
+      setError("ログインに失敗しました。");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
-      <h1>ログイン</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <LoginForm onLogin={handleLogin} isLoading={isLoading} />
-    </div>
+    <main className={styles.authPage}>
+      <section className={styles.card}>
+        <h1 className={styles.title}>ログイン</h1>
+        {error && <p className={styles.error}>{error}</p>}
+        <LoginForm onLogin={handleLogin} isLoading={isLoading} />
+      </section>
+    </main>
   );
 };
 

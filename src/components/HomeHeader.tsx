@@ -1,3 +1,5 @@
+﻿import styles from './HomeHeader.module.css';
+
 interface HomeHeaderProps {
   userId: string;
   userName: string;
@@ -5,11 +7,10 @@ interface HomeHeaderProps {
 
 const HomeHeader = ({ userId, userName }: HomeHeaderProps) => {
   return (
-    <section className="home-card">
-      <p className="home-user-id">ユーザーID: {userId}</p>
-      <h1 className="home-title">Aloha! {userName} is ohana!</h1>
-      <p className="home-subtitle">To infinity...and beyond!</p>
-    </section>
+    <div className={styles.content}>
+      <p className={styles.userId}>ユーザーID: {userId}</p>
+      <h1 className={styles.title}>Aloha! {userName} is ohana! 🌺</h1>
+    </div>
   );
 };
 

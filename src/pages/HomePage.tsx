@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
-import HomeHeader from "../components/HomeHeader";
-import LearningHistoryList from "../components/LearningHistoryList";
-import QuizModeSection from "../components/QuizModeSection";
-import "./HomePage.css";
-import { HomeData, QuizModeOption } from "../types/home";
-import { useNavigate } from "react-router-dom";
+﻿import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CommonHeader from '../components/CommonHeader';
+import LearningHistoryList from '../components/LearningHistoryList';
+import QuizModeSection from '../components/QuizModeSection';
+import './HomePage.css';
+import { HomeData, QuizModeOption } from '../types/home';
 
 // API 連携前でも画面確認できるように、まずはモックデータを置いています。
 const mockHomeData: HomeData = {
@@ -52,8 +52,6 @@ const HomePage = () => {
   const [selectedQuizMode, setSelectedQuizMode] = useState<string>(
     mockHomeData.quizModes[0]?.quizMode ?? "",
   );
-  // メニューの開閉状態を管理
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const selectedQuizModeData = useMemo<QuizModeOption | undefined>(() => {
     return homeData.quizModes.find(
@@ -75,41 +73,17 @@ const HomePage = () => {
   };
 
   const handleLogout = () => {
-    // ログアウト処理を実装予定
-    alert("ログアウトしました。");
-    navigate("/login");
+    alert('ログアウトしました。');
+    navigate('/login');
   };
 
   return (
     <main className="home-page">
-      {/* ハンバーガーメニュー */}
-      <div className="hamburger-menu">
-        <button
-          className={`hamburger-button ${isMenuOpen ? "open" : ""}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        {isMenuOpen && (
-          <div className="menu-dropdown">
-            <div className="menu-user-info">
-              <p className="menu-label">ログインユーザー</p>
-              <p className="menu-value">
-                {homeData.userName}({homeData.userId})
-              </p>
-            </div>
-            <hr />
-            <button className="menu-item" onClick={handleLogout}>
-              ログアウト
-            </button>
-          </div>
-        )}
-      </div>
-
-      <HomeHeader userId={homeData.userId} userName={homeData.userName} />
+      <CommonHeader
+        userId={homeData.userId}
+        userName={homeData.userName}
+        onLogout={handleLogout}
+      />
 
       <QuizModeSection
         quizModes={homeData.quizModes}

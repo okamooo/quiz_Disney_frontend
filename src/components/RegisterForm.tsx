@@ -1,4 +1,4 @@
-﻿import { useState, } from "react";
+﻿import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterRequest } from "../types/authModels";
 import styles from "./RegisterForm.module.css";
@@ -15,7 +15,8 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {    e.preventDefault();
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (password !== confirmPassword) {
       alert("パスワードが一致しません。");
       return;
@@ -32,7 +33,7 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
       <div className={styles.fields}>
         <div className={styles.field}>
           <label htmlFor="userId" className={styles.label}>
-            ユーザーID
+            ログインID
           </label>
           <input
             id="userId"
@@ -74,7 +75,7 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
 
         <div className={styles.field}>
           <label htmlFor="confirmPassword" className={styles.label}>
-            パスワード（確認）
+            パスワード確認
           </label>
           <input
             id="confirmPassword"

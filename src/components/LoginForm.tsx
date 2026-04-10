@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../types/auth";
 import styles from "./LoginForm.module.css";
@@ -13,7 +13,8 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-const handleSubmit = (e: { preventDefault: () => void }) => {    e.preventDefault();
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     onLogin({ loginId, password });
   };
 

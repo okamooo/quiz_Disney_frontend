@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { QuizModeOption } from "../types/home";
 
 interface QuizModeSectionProps {
@@ -25,7 +25,10 @@ const QuizModeSection = ({
   return (
     <section className="home-card">
       <div className="home-section-header">
-        <h2>クイズ開始</h2>
+        <h2 className="section-title-icon" aria-label="学習履歴">
+            ▶️クイズ開始
+        </h2>
+
         <p>出題形式を選択してください。</p>
       </div>
 
