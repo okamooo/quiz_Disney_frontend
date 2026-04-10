@@ -1,6 +1,7 @@
-import { useState } from "react";
+﻿import { useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterRequest } from "../types/authModels";
+import styles from "./RegisterForm.module.css";
 
 interface RegisterFormProps {
   onRegister: (request: RegisterRequest) => void;
@@ -14,9 +15,7 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  // React.FormEvent ではなく、ブラウザ標準の "SubmitEvent" または "Event" を使う
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const handleSubmit = (e: { preventDefault: () => void }) => {    e.preventDefault();
     if (password !== confirmPassword) {
       alert("パスワードが一致しません。");
       return;
@@ -28,39 +27,11 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
     navigate("/login");
   };
 
-  const inputStyle = {
-    padding: "10px",
-    width: "100%",
-    boxSizing: "border-box" as const,
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-  };
-
-  const labelStyle = {
-    fontSize: "14px",
-    fontWeight: "bold",
-  };
-
-  const fieldContainerStyle = {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: "5px",
-  };
-
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        maxWidth: "400px",
-        margin: "0 auto",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        <div style={fieldContainerStyle}>
-          <label htmlFor="userId" style={labelStyle}>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.fields}>
+        <div className={styles.field}>
+          <label htmlFor="userId" className={styles.label}>
             ユーザーID
           </label>
           <input
@@ -69,12 +40,12 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
 
-        <div style={fieldContainerStyle}>
-          <label htmlFor="email" style={labelStyle}>
+        <div className={styles.field}>
+          <label htmlFor="email" className={styles.label}>
             メールアドレス
           </label>
           <input
@@ -83,12 +54,12 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
 
-        <div style={fieldContainerStyle}>
-          <label htmlFor="password" style={labelStyle}>
+        <div className={styles.field}>
+          <label htmlFor="password" className={styles.label}>
             パスワード
           </label>
           <input
@@ -97,12 +68,12 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
 
-        <div style={fieldContainerStyle}>
-          <label htmlFor="confirmPassword" style={labelStyle}>
+        <div className={styles.field}>
+          <label htmlFor="confirmPassword" className={styles.label}>
             パスワード（確認）
           </label>
           <input
@@ -111,7 +82,7 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            style={inputStyle}
+            className={styles.input}
           />
         </div>
       </div>
@@ -119,31 +90,16 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
       <button
         type="submit"
         disabled={isLoading}
-        style={{
-          padding: "12px",
-          cursor: "pointer",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          fontWeight: "bold",
-        }}
+        className={styles.submitButton}
       >
         {isLoading ? "登録中..." : "登録"}
       </button>
 
-      <div style={{ textAlign: "center" }}>
+      <div className={styles.footer}>
         <button
           type="button"
           onClick={handleLoginClick}
-          style={{
-            background: "none",
-            border: "none",
-            color: "#007bff",
-            cursor: "pointer",
-            textDecoration: "underline",
-            fontSize: "12px",
-          }}
+          className={styles.linkButton}
         >
           既にアカウントをお持ちの方はこちら
         </button>

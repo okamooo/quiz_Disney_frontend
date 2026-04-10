@@ -1,6 +1,7 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../types/auth";
+import styles from "./LoginForm.module.css";
 
 interface LoginFormProps {
   onLogin: (request: LoginRequest) => void;
@@ -12,9 +13,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // React.FormEvent ではなく、ブラウザ標準の "SubmitEvent" または "Event" を使う
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+const handleSubmit = (e: { preventDefault: () => void }) => {    e.preventDefault();
     onLogin({ loginId, password });
   };
 
@@ -23,22 +22,10 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-        maxWidth: "400px",
-        margin: "0 auto",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label
-            htmlFor="loginId"
-            style={{ fontSize: "14px", fontWeight: "bold" }}
-          >
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.fields}>
+        <div className={styles.field}>
+          <label htmlFor="loginId" className={styles.label}>
             ユーザーID or メールアドレス
           </label>
           <input
@@ -47,21 +34,12 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
             value={loginId}
             onChange={(e) => setLoginId(e.target.value)}
             required
-            style={{
-              padding: "10px",
-              width: "100%",
-              boxSizing: "border-box",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            className={styles.input}
           />
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <label
-            htmlFor="password"
-            style={{ fontSize: "14px", fontWeight: "bold" }}
-          >
+        <div className={styles.field}>
+          <label htmlFor="password" className={styles.label}>
             パスワード
           </label>
           <input
@@ -70,13 +48,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{
-              padding: "10px",
-              width: "100%",
-              boxSizing: "border-box",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-            }}
+            className={styles.input}
           />
         </div>
       </div>
@@ -84,31 +56,16 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
       <button
         type="submit"
         disabled={isLoading}
-        style={{
-          padding: "12px",
-          cursor: "pointer",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          fontWeight: "bold",
-        }}
+        className={styles.submitButton}
       >
         {isLoading ? "ログイン中..." : "ログイン"}
       </button>
 
-      <div style={{ textAlign: "center" }}>
+      <div className={styles.footer}>
         <button
           type="button"
           onClick={handleRegisterClick}
-          style={{
-            background: "none",
-            border: "none",
-            color: "#007bff",
-            cursor: "pointer",
-            textDecoration: "underline",
-            fontSize: "12px",
-          }}
+          className={styles.linkButton}
         >
           アカウントをお持ちでない方はこちら
         </button>
