@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+﻿import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CommonHeader from '../components/CommonHeader';
 import LearningHistoryList from '../components/LearningHistoryList';
@@ -48,13 +48,10 @@ const mockHomeData: HomeData = {
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const navigate = useNavigate();
   const [homeData] = useState<HomeData>(mockHomeData);
   const [selectedQuizMode, setSelectedQuizMode] = useState<string>(
     mockHomeData.quizModes[0]?.quizMode ?? "",
   );
-  // メニューの開閉状態を管理
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const selectedQuizModeData = useMemo<QuizModeOption | undefined>(() => {
     return homeData.quizModes.find(
@@ -102,4 +99,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
