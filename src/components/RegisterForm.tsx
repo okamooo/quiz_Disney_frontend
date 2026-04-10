@@ -1,6 +1,7 @@
-﻿import { useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterRequest } from "../types/authModels";
+import styles from "./RegisterForm.module.css";
 import styles from "./RegisterForm.module.css";
 
 interface RegisterFormProps {
@@ -14,6 +15,7 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +24,10 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
       return;
     }
     onRegister({ userId, email, password });
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
   };
 
   const handleLoginClick = () => {
@@ -93,8 +99,24 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
         disabled={isLoading}
         className={styles.submitButton}
       >
+
+      <button
+        type="submit"
+        disabled={isLoading}
+        className={styles.submitButton}
+      >
         {isLoading ? "登録中..." : "登録"}
       </button>
+
+      <div className={styles.footer}>
+        <button
+          type="button"
+          onClick={handleLoginClick}
+          className={styles.linkButton}
+        >
+          既にアカウントをお持ちの方はこちら
+        </button>
+      </div>
 
       <div className={styles.footer}>
         <button

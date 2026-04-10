@@ -1,6 +1,7 @@
-﻿import { useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../types/auth";
+import styles from "./LoginForm.module.css";
 import styles from "./LoginForm.module.css";
 
 interface LoginFormProps {
@@ -27,6 +28,10 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
       <div className={styles.fields}>
         <div className={styles.field}>
           <label htmlFor="loginId" className={styles.label}>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.fields}>
+        <div className={styles.field}>
+          <label htmlFor="loginId" className={styles.label}>
             ユーザーID or メールアドレス
           </label>
           <input
@@ -36,9 +41,12 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
             onChange={(e) => setLoginId(e.target.value)}
             required
             className={styles.input}
+            className={styles.input}
           />
         </div>
 
+        <div className={styles.field}>
+          <label htmlFor="password" className={styles.label}>
         <div className={styles.field}>
           <label htmlFor="password" className={styles.label}>
             パスワード
@@ -50,6 +58,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             className={styles.input}
+            className={styles.input}
           />
         </div>
       </div>
@@ -58,14 +67,17 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
         type="submit"
         disabled={isLoading}
         className={styles.submitButton}
+        className={styles.submitButton}
       >
         {isLoading ? "ログイン中..." : "ログイン"}
       </button>
 
       <div className={styles.footer}>
+      <div className={styles.footer}>
         <button
           type="button"
           onClick={handleRegisterClick}
+          className={styles.linkButton}
           className={styles.linkButton}
         >
           アカウントをお持ちでない方はこちら
