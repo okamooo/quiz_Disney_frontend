@@ -25,7 +25,7 @@ const QuizModeSection = ({
   return (
     <section className="home-card">
       <div className="home-section-header">
-        <h2 className="section-title-icon" aaria-label="学習履歴">
+        <h2 className="section-title-icon" aria-label="学習履歴">
             ▶️クイズ開始
         </h2>
 
