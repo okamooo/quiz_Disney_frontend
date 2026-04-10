@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterRequest } from "../types/authModels";
 import styles from "./RegisterForm.module.css";
@@ -15,7 +15,8 @@ const RegisterForm = ({ onRegister, isLoading }: RegisterFormProps) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // React.FormEvent ではなく、ブラウザ標準の "SubmitEvent" または "Event" を使う
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("�p�X���[�h����v���܂���B");
