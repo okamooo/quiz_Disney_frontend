@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "../types/auth";
 import styles from "./LoginForm.module.css";
@@ -13,8 +13,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // React.FormEvent ではなく、ブラウザ標準の "SubmitEvent" または "Event" を使う
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onLogin({ loginId, password });
   };
@@ -28,7 +27,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
       <div className={styles.fields}>
         <div className={styles.field}>
           <label htmlFor="loginId" className={styles.label}>
-            ���[�U�[ID or ���[���A�h���X
+            ユーザーID or メールアドレス
           </label>
           <input
             id="loginId"
@@ -42,7 +41,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
 
         <div className={styles.field}>
           <label htmlFor="password" className={styles.label}>
-            �p�X���[�h
+            パスワード
           </label>
           <input
             id="password"
@@ -60,7 +59,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
         disabled={isLoading}
         className={styles.submitButton}
       >
-        {isLoading ? "���O�C����..." : "���O�C��"}
+        {isLoading ? "ログイン中..." : "ログイン"}
       </button>
 
       <div className={styles.footer}>
@@ -69,7 +68,7 @@ const LoginForm = ({ onLogin, isLoading }: LoginFormProps) => {
           onClick={handleRegisterClick}
           className={styles.linkButton}
         >
-          �A�J�E���g���������łȂ����͂�����
+          アカウントをお持ちでない方はこちら
         </button>
       </div>
     </form>
