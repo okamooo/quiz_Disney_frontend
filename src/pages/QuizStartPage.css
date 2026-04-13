@@ -1,0 +1,87 @@
+.quiz-start-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.start-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.start-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+}
+
+.start-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.mode-info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.mode-info .label {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.mode-info .value {
+  color: #1a73e8;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.start-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.start-button {
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.start-button.primary {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.start-button.primary:hover {
+  background-color: #1557b0;
+  transform: translateY(-2px);
+}
+
+.start-button.secondary {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+}
+
+.start-button.secondary:hover {
+  background-color: #f0f0f0;
+}
