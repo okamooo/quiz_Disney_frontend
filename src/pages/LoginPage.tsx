@@ -15,6 +15,8 @@ const LoginPage = () => {
     setError(null);
     try {
       await login(request);
+      // ログイン成功時に情報を localStorage に保存
+      localStorage.setItem('userId', request.loginId);
       navigate("/home");
     } catch (err) {
       console.error("ログインエラー:", err);

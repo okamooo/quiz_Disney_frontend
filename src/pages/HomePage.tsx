@@ -1,99 +1,106 @@
-﻿import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import CommonHeader from '../components/CommonHeader';
-import LearningHistoryList from '../components/LearningHistoryList';
-import QuizModeSection from '../components/QuizModeSection';
-import './HomePage.css';
-import { HomeData, QuizModeOption } from '../types/home';
-
-// API 連携前でも画面確認できるように、まずはモックデータを置いています。
-const mockHomeData: HomeData = {
-  userId: "user-001",
-  userName: "Lilo",
-  welcomeMessage: "",
-  hasAvailableQuiz: true,
-  quizModes: [
-    {
-      quizMode: "choice",
-      quizModeLabel: "選択問題",
-      quizStartUrl: "/quiz/choice",
-      isAvailable: true,
-    },
-    {
-      quizMode: "sort",
-      quizModeLabel: "並び替え問題",
-      quizStartUrl: "/quiz/sort",
-      isAvailable: false,
-    },
-  ],
-  learningHistories: [
-    {
-      historyId: "history-001",
-      playedAt: "2026-04-07T09:30:00+09:00",
-      solvedCount: 10,
-      correctCount: 8,
-      incorrectCount: 2,
-      accuracyRate: 80,
-    },
-    {
-      historyId: "history-002",
-      playedAt: "2026-04-06T20:15:00+09:00",
-      solvedCount: 12,
-      correctCount: 9,
-      incorrectCount: 3,
-      accuracyRate: 75,
-    },
-  ],
-};
+﻿import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CommonHeader from "../components/CommonHeader";
+import LearningHistoryList from "../components/LearningHistoryList";
+import QuizModeSection from "../components/QuizModeSection";
+import "./HomePage.css";
+import { HomeData, QuizModeOption } from "../types/home";
+import { getHomeData } from "../api/home";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [homeData] = useState<HomeData>(mockHomeData);
-  const [selectedQuizMode, setSelectedQuizMode] = useState<string>(
-    mockHomeData.quizModes[0]?.quizMode ?? "",
-  );
+  const [homeData, setHomeData] = useState<HomeData | null>(null);
+  const [selectedQuizMode, setSelectedQuizMode] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const userId = localStorage.getItem("userId") || "";
+  const userName = localStorage.getItem("userName") || "ゲスト";
+
+  useEffect(() => {
+    const fetchHomeData = async () => {
+      if (!userId) {
+        setError("ログイン情報が見つかりません。");
+        setIsLoading(false);
+        return;
+      }
+      try {
+        setIsLoading(true);
+        const data = await getHomeData(userId);
+        setHomeData(data);
+        if (data.quizModes && data.quizModes.length > 0) {
+          setSelectedQuizMode(data.quizModes[0].quizMode);
+        }
+      } catch (err) {
+        console.error("Fetch Error:", err);
+        setError("サーバーとの通信に失敗しました。");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchHomeData();
+  }, [userId]);
 
   const selectedQuizModeData = useMemo<QuizModeOption | undefined>(() => {
-    return homeData.quizModes.find(
-      (quizModeOption) => quizModeOption.quizMode === selectedQuizMode,
+    return (homeData?.quizModes || []).find(
+      (m) => m.quizMode === selectedQuizMode,
     );
-  }, [homeData.quizModes, selectedQuizMode]);
+  }, [homeData?.quizModes, selectedQuizMode]);
 
-  const hasAvailableQuiz =
-    homeData.hasAvailableQuiz && Boolean(selectedQuizModeData?.isAvailable);
+  const hasAvailableQuiz: boolean =
+    Boolean(homeData?.hasAvailableQuiz) &&
+    (selectedQuizModeData?.isAvailable ?? false);
 
   const handleQuizStart = () => {
-    if (!selectedQuizModeData) {
-      return;
-    }
+    if (!selectedQuizModeData || !homeData) return;
 
-    alert(
-      `${selectedQuizModeData.quizModeLabel} を開始します。\n遷移先: ${selectedQuizModeData.quizStartUrl}`,
-    );
+    navigate("/quiz/start", {
+      state: {
+        mode: selectedQuizModeData.quizMode,
+        modeLabel: selectedQuizModeData.quizModeLabel,
+        userName: homeData.userName,
+      },
+    });
   };
 
   const handleLogout = () => {
-    alert('ログアウトしました。');
-    navigate('/login');
+    localStorage.clear();
+    navigate("/login");
   };
+
+  if (isLoading)
+    return (
+      <div style={{ color: "white", textAlign: "center", padding: "100px" }}>
+        読み込み中...
+      </div>
+    );
+  if (error)
+    return (
+      <div style={{ color: "#ff6b6b", textAlign: "center", padding: "100px" }}>
+        {error}
+      </div>
+    );
+  if (!homeData) return null;
 
   return (
     <main className="home-page">
       <CommonHeader
-        userId={homeData.userId}
-        userName={homeData.userName}
+        userId={homeData.userId || userId}
+        userName={homeData.userName || userName}
         onLogout={handleLogout}
       />
 
       <QuizModeSection
-        quizModes={homeData.quizModes}
+        quizModes={homeData.quizModes || []}
         selectedQuizMode={selectedQuizMode}
         hasAvailableQuiz={hasAvailableQuiz}
         onQuizModeChange={setSelectedQuizMode}
         onQuizStart={handleQuizStart}
       />
 
-      <LearningHistoryList learningHistories={homeData.learningHistories} />
+      <LearningHistoryList
+        learningHistories={homeData.learningHistories || []}
+      />
     </main>
   );
 };
