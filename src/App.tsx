@@ -11,7 +11,6 @@ import QuizStartPage from './pages/QuizStartPage';
 import QuestionPage from './pages/QuestionPage';
 import './App.css';
 
-
 function App() {
   return (
     <Router>
@@ -23,8 +22,8 @@ function App() {
           <Route path="/quiz/start" element={<QuizStartPage />} />
           <Route path="/quiz/question" element={<QuestionPage />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
-          
-          {/* 蟆・擂逧・↓繝繝・す繝･繝懊・繝峨↑縺ｩ繧定ｿｽ蜉縺吶ｋ蝣ｴ蜷医・縺薙％縺ｫ霑ｽ蜉 */}
+
+          {/* 将来的にダッシュボードなどを追加する場合はここに追加 */}
           {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
         </Routes>
       </div>
