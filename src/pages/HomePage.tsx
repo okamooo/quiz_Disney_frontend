@@ -98,9 +98,14 @@ const HomePage = () => {
         onQuizStart={handleQuizStart}
       />
 
-      <LearningHistoryList
-        learningHistories={homeData.learningHistories || []}
-      />
+      <div className="learning-history-wrapper">
+        <LearningHistoryList
+          learningHistories={homeData.learningHistories || []}
+        />
+        <div className="coming-soon-overlay">
+          <span className="coming-soon-text">Coming Soon,,,</span>
+        </div>
+      </div>
     </main>
   );
 };

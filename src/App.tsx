@@ -9,6 +9,7 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from './pages/HomePage';
 import QuizStartPage from './pages/QuizStartPage';
 import QuestionPage from './pages/QuestionPage';
+import QuizResultPage from './pages/QuizResultPage';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/quiz/start" element={<QuizStartPage />} />
           <Route path="/quiz/question" element={<QuestionPage />} />
+          <Route path="/quiz/result" element={<QuizResultPage />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
 
           {/* 将来的にダッシュボードなどを追加する場合はここに追加 */}

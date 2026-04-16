@@ -13,13 +13,13 @@ const CommonHeader = ({ userId, userName, onLogout }: CommonHeaderProps) => {
     <header className={styles.header}>
       <div className={styles.inner}>
         <HomeHeader userId={userId} userName={userName} />
-        <div className={styles.menuArea}>
-          <HamburgerMenu
-            userId={userId}
-            userName={userName}
-            onLogout={onLogout}
-          />
-        </div>
+      </div>
+      <div className={styles.menuArea}>
+        <HamburgerMenu
+          userId={userId}
+          userName={userName}
+          onLogout={onLogout}
+        />
       </div>
     </header>
   );
