@@ -1,26 +1,35 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import ChoiceList from '../components/ChoiceList';
-import QuizMetaInfo from '../components/QuizMetaInfo';
-import QuizProgressHeader from '../components/QuizProgressHeader';
-import QuizPromptCard from '../components/QuizPromptCard';
-import SubmitAnswerBar from '../components/SubmitAnswerBar';
-import { answerQuiz } from '../api/quiz';
-import { UserAnswer, QuizProgress, QuizResult, QuizQuestion, QuizResultSummary } from '../types/question';
-import './QuestionPage.css';
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import CommonHeader from "../components/CommonHeader";
+import ChoiceList from "../components/ChoiceList";
+import QuizMetaInfo from "../components/QuizMetaInfo";
+import QuizProgressHeader from "../components/QuizProgressHeader";
+import QuizPromptCard from "../components/QuizPromptCard";
+import SubmitAnswerBar from "../components/SubmitAnswerBar";
+import { answerQuiz } from "../api/quiz";
+import {
+  UserAnswer,
+  QuizProgress,
+  QuizResult,
+  QuizQuestion,
+  QuizResultSummary,
+} from "../types/question";
+import "./QuestionPage.css";
 
 const QuestionPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const { sessionId, initialQuestion, initialProgress } = location.state || {};
 
-  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion>(initialQuestion);
+  const [currentQuestion, setCurrentQuestion] =
+    useState<QuizQuestion>(initialQuestion);
   const [progress, setProgress] = useState<QuizProgress>(initialProgress);
   const [selectedChoiceId, setSelectedChoiceId] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
-  
+  const [showGonPopup, setShowGonPopup] = useState(false);
+
   const [answerResult, setAnswerResult] = useState<{
     correctAnswer: string;
     explanation?: string;
@@ -31,18 +40,24 @@ const QuestionPage = () => {
   } | null>(null);
 
   if (!sessionId || !currentQuestion) {
-    return <div style={{ color: 'white', textAlign: 'center', padding: '100px' }}>不正なアクセスです。</div>;
+    return (
+      <div style={{ color: "white", textAlign: "center", padding: "100px" }}>
+        不正なアクセスです。
+      </div>
+    );
   }
 
   const correctChoice = currentQuestion.choices.find(
-    (choice) => choice.choiceText === answerResult?.correctAnswer
+    (choice) => choice.choiceText === answerResult?.correctAnswer,
   );
 
   const handleAnswer = async () => {
     if (selectedChoiceId === null || isAnswered) return;
 
-    const selectedChoice = currentQuestion.choices.find(c => c.choiceId === selectedChoiceId);
-    
+    const selectedChoice = currentQuestion.choices.find(
+      (c) => c.choiceId === selectedChoiceId,
+    );
+
     try {
       const response = await answerQuiz(sessionId, {
         questionId: currentQuestion.questionId,
@@ -62,7 +77,8 @@ const QuestionPage = () => {
       // Update current question with data from response to show translation/explanation immediately
       const updatedQuestion: QuizQuestion = {
         ...currentQuestion,
-        translationText: response.translationText || currentQuestion.translationText,
+        translationText:
+          response.translationText || currentQuestion.translationText,
         explanation: response.explanation || currentQuestion.explanation,
       };
       setCurrentQuestion(updatedQuestion);
@@ -92,7 +108,7 @@ const QuestionPage = () => {
     try {
       const response = await answerQuiz(sessionId, {
         questionId: currentQuestion.questionId,
-        action: 'SKIP'
+        action: "SKIP",
       });
 
       setAnswerResult({
@@ -107,7 +123,8 @@ const QuestionPage = () => {
       // Update current question with data from response
       const updatedQuestion: QuizQuestion = {
         ...currentQuestion,
-        translationText: response.translationText || currentQuestion.translationText,
+        translationText:
+          response.translationText || currentQuestion.translationText,
         explanation: response.explanation || currentQuestion.explanation,
       };
       setCurrentQuestion(updatedQuestion);
@@ -141,15 +158,28 @@ const QuestionPage = () => {
       };
       navigate("/quiz/result", { state: { result: resultData } });
     } else if (answerResult?.nextQuestion) {
+      // 9問目から10問目に移動する時にポップアップを表示
+      if (answerResult.nextQuestion.currentQuestionNumber === 10) {
+        setShowGonPopup(true);
+      } else {
+        proceedToNext();
+      }
+    }
+  };
+
+  const proceedToNext = () => {
+    if (answerResult?.nextQuestion) {
       setCurrentQuestion(answerResult.nextQuestion);
       setIsAnswered(false);
       setSelectedChoiceId(null);
       setAnswerResult(null);
+      setShowGonPopup(false);
     }
   };
 
   return (
     <main className="question-page">
+      <CommonHeader />
       <div className="question-page__content">
         <QuizProgressHeader progress={progress} />
         <QuizMetaInfo
@@ -179,6 +209,26 @@ const QuestionPage = () => {
         onNext={handleNext}
         isLastQuestion={answerResult?.finished ?? false}
       />
+
+      {/* ゴンの覚悟ポップアップ */}
+      {showGonPopup && (
+        <div className="gon-popup-overlay">
+          <div className="gon-popup">
+            <p className="gon-popup__message">
+              もうこれで終わってもいい
+              <br />
+              だからありったけを・・・
+            </p>
+            <button
+              type="button"
+              className="gon-popup__button"
+              onClick={proceedToNext}
+            >
+              最初はグー・・・ジャン・・ケン・・
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 };

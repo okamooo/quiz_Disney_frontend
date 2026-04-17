@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import CommonHeader from '../components/CommonHeader';
 import { QuizResult } from '../types/question';
 import './QuizResultPage.css';
 
@@ -13,6 +14,7 @@ const QuizResultPage = () => {
   if (!result) {
     return (
       <main className="quiz-result-page">
+        <CommonHeader />
         <div className="quiz-result-page__content" style={{ textAlign: 'center', paddingTop: '100px' }}>
           <p style={{ color: '#5f7a87', marginBottom: '24px' }}>結果データが見つかりませんでした。</p>
           <button 
@@ -28,19 +30,44 @@ const QuizResultPage = () => {
   }
 
   const accuracy = Math.round((result.correctAnswers / result.totalQuestions) * 100);
+  const userName = localStorage.getItem('userName') || localStorage.getItem('userId') || 'ゲスト';
+
+  // 点数に応じたメッセージを取得
+  const getScoreMessage = (score: number) => {
+    if (score === 0) return "念能力を覚えてから来てください";
+    if (score >= 1 && score <= 3) return "君の敗因はメモリの無駄使い♡";
+    if (score >= 4 && score <= 5) return "ママココ思い出して";
+    if (score >= 6 && score <= 8) return "妖精の粉が足りないみたいだ、、😢";
+    if (score === 9) return `完璧に勝つ♧だろ？${userName}♡`;
+    if (score === 10) return "おそろしく高い点数 オレでなきゃ見逃しちゃうね";
+    return "";
+  };
+
+  const message = getScoreMessage(result.correctAnswers);
 
   return (
     <main className="quiz-result-page">
+      <CommonHeader />
       <div className="quiz-result-page__content">
         <header className="quiz-result-header">
           <h1 className="quiz-result-header__title">クイズ完了！</h1>
+          
+          {message && (
+            <div className="quiz-result-message">
+              <p className="quiz-result-message__text">{message}</p>
+            </div>
+          )}
+
           <div className="quiz-result-summary">
             <div className="quiz-result-summary__score">
-              <span className="quiz-result-summary__label">正答率</span>
-              <span className="quiz-result-summary__value">{accuracy}%</span>
+              <span className="quiz-result-summary__label">スコア</span>
+              <div className="quiz-result-summary__score-display">
+                <span className="quiz-result-summary__value">{result.correctAnswers}</span>
+                <span className="quiz-result-summary__total">/ {result.totalQuestions}</span>
+              </div>
             </div>
             <div className="quiz-result-summary__detail">
-              {result.totalQuestions}問中 {result.correctAnswers}問正解
+              正解率 {accuracy}%
             </div>
           </div>
         </header>

@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CommonHeader from "../components/CommonHeader";
 import LoginForm from "../components/LoginForm";
 import { login } from "../api/auth";
 import styles from "./AuthPage.module.css";
@@ -27,13 +28,16 @@ const LoginPage = () => {
   };
 
   return (
-    <main className={styles.authPage}>
-      <section className={styles.card}>
-        <h1 className={styles.title}>ログイン</h1>
-        {error && <p className={styles.error}>{error}</p>}
-        <LoginForm onLogin={handleLogin} isLoading={isLoading} />
-      </section>
-    </main>
+    <div className={styles.authPageContainer}>
+      <CommonHeader />
+      <main className={styles.authPage}>
+        <section className={styles.card}>
+          <h1 className={styles.title}>ログイン</h1>
+          {error && <p className={styles.error}>{error}</p>}
+          <LoginForm onLogin={handleLogin} isLoading={isLoading} />
+        </section>
+      </main>
+    </div>
   );
 };
 
