@@ -1,14 +1,18 @@
-﻿import HamburgerMenu from './HamburgerMenu';
+import { useNavigate } from 'react-router-dom';
+import HamburgerMenu from './HamburgerMenu';
 import HomeHeader from './HomeHeader';
 import styles from './CommonHeader.module.css';
 
-interface CommonHeaderProps {
-  userId: string;
-  userName: string;
-  onLogout: () => void;
-}
+const CommonHeader = () => {
+  const navigate = useNavigate();
+  const userId = localStorage.getItem('userId') || '';
+  const userName = localStorage.getItem('userName') || userId || 'ゲスト';
 
-const CommonHeader = ({ userId, userName, onLogout }: CommonHeaderProps) => {
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -18,7 +22,7 @@ const CommonHeader = ({ userId, userName, onLogout }: CommonHeaderProps) => {
         <HamburgerMenu
           userId={userId}
           userName={userName}
-          onLogout={onLogout}
+          onLogout={handleLogout}
         />
       </div>
     </header>

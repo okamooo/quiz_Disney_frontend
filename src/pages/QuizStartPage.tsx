@@ -43,15 +43,7 @@ const QuizStartPage = () => {
 
   return (
     <main className="quiz-start-page">
-      <CommonHeader
-        userId={userId}
-        userName={userName}
-        onLogout={() => {
-          localStorage.removeItem('userId');
-          localStorage.removeItem('userName');
-          navigate("/login");
-        }}
-      />
+      <CommonHeader />
 
       <div className="start-container">
         <section className="start-card">

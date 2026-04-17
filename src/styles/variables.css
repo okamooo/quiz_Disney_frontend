@@ -1,17 +1,21 @@
 :root {
-  --color-text-primary: #12344d;
-  --color-text-secondary: #4f6b7a;
-  --color-text-muted: #5f7a87;
-  --color-text-on-brand: #ffffff;
-  --color-background-page: #f4f8fa;
-  --color-background-surface: #ffffff;
-  --color-background-subtle: #f8fbfc;
-  --color-border-default: #d8e3ea;
-  --color-border-strong: #bfd1dc;
-  --color-brand-primary: #007bff;
-  --color-brand-primary-hover: #0069d9;
-  --color-link: #007bff;
-  --color-danger: #d9534f;
+  /* Disney Magical Theme Variables */
+  --color-text-primary: #f9f9fa;
+  --color-text-secondary: #cacaca;
+  --color-text-muted: #8b92a5;
+  --color-text-on-brand: #040714;
+  
+  --color-background-page: #040714; /* Deep space navy */
+  --color-background-surface: #1a1d29; /* Card surface */
+  --color-background-subtle: #2d3142; /* Slightly lighter */
+  
+  --color-border-default: #43495f;
+  --color-border-strong: #626880;
+  
+  --color-brand-primary: #e6b31e; /* Magical Gold */
+  --color-brand-primary-hover: #f5c518;
+  --color-link: #3fc6ff; /* Magical Cyan */
+  --color-danger: #ff4545;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -22,21 +26,22 @@
   --space-8: 32px;
   --space-12: 48px;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
 
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
+  --font-size-xs: 0.8rem;
+  --font-size-sm: 0.9rem;
+  --font-size-base: 1.05rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
 
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
 
-  --shadow-card: 0 16px 32px rgba(20, 58, 79, 0.08);
+  /* Magical Glow Shadows */
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(63, 198, 255, 0.1);
 }

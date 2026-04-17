@@ -1,4 +1,4 @@
-export type QuizMode = 'choice' | 'sort';
+export type QuizMode = 'mode1' | 'mode2';
 
 export interface QuizModeOption {
   quizMode: QuizMode;

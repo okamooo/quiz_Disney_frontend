@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CommonHeader from "../components/CommonHeader";
 import RegisterForm from "../components/RegisterForm";
 import { register } from "../api/auth";
 import styles from "./AuthPage.module.css";
@@ -28,13 +29,16 @@ const RegisterPage = () => {
   };
 
   return (
-    <main className={styles.authPage}>
-      <section className={styles.card}>
-        <h1 className={styles.title}>ユーザー登録</h1>
-        {error && <p className={styles.error}>{error}</p>}
-        <RegisterForm onRegister={handleRegister} isLoading={isLoading} />
-      </section>
-    </main>
+    <div className={styles.authPageContainer}>
+      <CommonHeader />
+      <main className={styles.authPage}>
+        <section className={styles.card}>
+          <h1 className={styles.title}>ユーザー登録</h1>
+          {error && <p className={styles.error}>{error}</p>}
+          <RegisterForm onRegister={handleRegister} isLoading={isLoading} />
+        </section>
+      </main>
+    </div>
   );
 };
 
