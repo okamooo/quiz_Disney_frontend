@@ -84,15 +84,27 @@
   letter-spacing: 0.1em;
 }
 
+.quiz-result-summary__score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
 .quiz-result-summary__value {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: var(--font-weight-bold);
   color: #fff;
   line-height: 1;
-  text-shadow: 0 0 20px rgba(63, 198, 255, 0.5);
+  text-shadow: 0 0 25px rgba(63, 198, 255, 0.6);
   background: linear-gradient(180deg, #fff 0%, #a2d8f9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.quiz-result-summary__total {
+  font-size: 2rem;
+  color: var(--color-text-muted);
+  font-weight: bold;
 }
 
 .quiz-result-summary__detail {

@@ -60,11 +60,14 @@ const QuizResultPage = () => {
 
           <div className="quiz-result-summary">
             <div className="quiz-result-summary__score">
-              <span className="quiz-result-summary__label">正答率</span>
-              <span className="quiz-result-summary__value">{accuracy}%</span>
+              <span className="quiz-result-summary__label">スコア</span>
+              <div className="quiz-result-summary__score-display">
+                <span className="quiz-result-summary__value">{result.correctAnswers}</span>
+                <span className="quiz-result-summary__total">/ {result.totalQuestions}</span>
+              </div>
             </div>
             <div className="quiz-result-summary__detail">
-              {result.totalQuestions}問中 {result.correctAnswers}問正解
+              正解率 {accuracy}%
             </div>
           </div>
         </header>
