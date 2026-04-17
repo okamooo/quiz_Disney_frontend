@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { mockQuizResult } from '../mocks/quiz';
 import { QuizResult } from '../types/question';
 import './QuizResultPage.css';
 
@@ -8,8 +7,25 @@ const QuizResultPage = () => {
   const location = useLocation();
 
   // 遷移元 (QuestionPage) から渡された結果データを取得
-  // 直接アクセスされた場合などはモックデータを表示する
-  const result: QuizResult = (location.state?.result as QuizResult) || mockQuizResult;
+  const result = location.state?.result as QuizResult;
+
+  // データがない場合はホームへリダイレクト
+  if (!result) {
+    return (
+      <main className="quiz-result-page">
+        <div className="quiz-result-page__content" style={{ textAlign: 'center', paddingTop: '100px' }}>
+          <p style={{ color: '#5f7a87', marginBottom: '24px' }}>結果データが見つかりませんでした。</p>
+          <button 
+            className="quiz-result-actions__button"
+            style={{ width: 'auto', padding: '12px 24px' }}
+            onClick={() => navigate('/home')}
+          >
+            ホームに戻る
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   const accuracy = Math.round((result.correctAnswers / result.totalQuestions) * 100);
 
@@ -42,7 +58,12 @@ const QuizResultPage = () => {
               
               <div className="quiz-result-item__body">
                 <p className="quiz-result-item__phrase">{answer.question.phraseText}</p>
-                <p className="quiz-result-item__translation">{answer.question.translationText}</p>
+                {answer.question.translationText && (
+                  <p className="quiz-result-item__translation">
+                    <span className="label">和訳：</span>
+                    {answer.question.translationText}
+                  </p>
+                )}
                 
                 <div className="quiz-result-item__details">
                   <div className="quiz-result-item__answer">

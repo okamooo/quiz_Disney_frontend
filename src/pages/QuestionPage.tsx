@@ -59,8 +59,16 @@ const QuestionPage = () => {
         resultSummary: response.result,
       });
 
+      // Update current question with data from response to show translation/explanation immediately
+      const updatedQuestion: QuizQuestion = {
+        ...currentQuestion,
+        translationText: response.translationText || currentQuestion.translationText,
+        explanation: response.explanation || currentQuestion.explanation,
+      };
+      setCurrentQuestion(updatedQuestion);
+
       const newAnswer: UserAnswer = {
-        question: currentQuestion,
+        question: updatedQuestion,
         selectedChoiceId,
         selectedChoiceText: selectedChoice?.choiceText,
         isCorrect: response.correct,
@@ -96,8 +104,16 @@ const QuestionPage = () => {
         resultSummary: response.result,
       });
 
+      // Update current question with data from response
+      const updatedQuestion: QuizQuestion = {
+        ...currentQuestion,
+        translationText: response.translationText || currentQuestion.translationText,
+        explanation: response.explanation || currentQuestion.explanation,
+      };
+      setCurrentQuestion(updatedQuestion);
+
       const newAnswer: UserAnswer = {
-        question: currentQuestion,
+        question: updatedQuestion,
         selectedChoiceId: null,
         isCorrect: false,
       };

@@ -34,7 +34,10 @@ const QuizPromptCard = ({
       </p>
       <p className="quiz-prompt-card__phrase">{maskedPhraseText}</p>
       {translationText ? (
-        <p className="quiz-prompt-card__translation">{translationText}</p>
+        <p className="quiz-prompt-card__translation">
+          <span className="quiz-prompt-card__translation-label">和訳：</span>
+          {translationText}
+        </p>
       ) : null}
     </section>
   );
