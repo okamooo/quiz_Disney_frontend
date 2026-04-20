@@ -7,29 +7,27 @@ const QuizStartPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { modeLabel, mode, userName: stateUserName } = location.state || {
+  const { modeLabel, mode } = location.state || {
     modeLabel: "選択問題",
     mode: "choice",
-    userName: ""
   };
 
-  const userId = localStorage.getItem('userId') ?? "";
-  const userName = stateUserName || userId;
+  const userId = localStorage.getItem("userId") ?? "";
 
   const handleStart = async () => {
     try {
       const response = await startQuiz({
         userId: userId,
         categoryId: 1, // カテゴリIDは一旦1固定
-        mode: mode
+        mode: mode,
       });
-      
-      navigate("/quiz/question", { 
-        state: { 
+
+      navigate("/quiz/question", {
+        state: {
           sessionId: response.quizSessionId,
           initialQuestion: response.question,
-          initialProgress: response.progress
-        } 
+          initialProgress: response.progress,
+        },
       });
     } catch (err) {
       console.error(err);
