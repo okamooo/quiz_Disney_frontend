@@ -1,23 +1,38 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import CommonHeader from "../components/CommonHeader";
+import { startQuiz } from "../api/quiz";
 import "./QuizStartPage.css";
 
 const QuizStartPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { modeLabel, mode, userName: stateUserName } = location.state || {
+  const { modeLabel, mode } = location.state || {
     modeLabel: "選択問題",
     mode: "choice",
-    userName: ""
   };
 
-  // 渡された名前があれば使い、なければ userId を使う
-  const userId = localStorage.getItem('userId') ?? "";
-  const userName = stateUserName || userId;
+  const userId = localStorage.getItem("userId") ?? "";
 
-  const handleStart = () => {
-    navigate("/quiz/question", { state: { mode } });
+  const handleStart = async () => {
+    try {
+      const response = await startQuiz({
+        userId: userId,
+        categoryId: 1, // カテゴリIDは一旦1固定
+        mode: mode,
+      });
+
+      navigate("/quiz/question", {
+        state: {
+          sessionId: response.quizSessionId,
+          initialQuestion: response.question,
+          initialProgress: response.progress,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      alert("クイズの開始に失敗しました。");
+    }
   };
 
   const handleBack = () => {
@@ -26,15 +41,7 @@ const QuizStartPage = () => {
 
   return (
     <main className="quiz-start-page">
-      <CommonHeader
-        userId={userId}
-        userName={userName}
-        onLogout={() => {
-          localStorage.removeItem('userId');
-          localStorage.removeItem('userName');
-          navigate("/login");
-        }}
-      />
+      <CommonHeader />
 
       <div className="start-container">
         <section className="start-card">

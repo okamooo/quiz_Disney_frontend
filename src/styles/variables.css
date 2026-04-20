@@ -3,14 +3,17 @@
   --color-text-secondary: #4f6b7a;
   --color-text-muted: #5f7a87;
   --color-text-on-brand: #ffffff;
+
   --color-background-page: #f4f8fa;
   --color-background-surface: #ffffff;
-  --color-background-subtle: #f8fbfc;
+  --color-background-subtle: #fbfdfe;
+
   --color-border-default: #d8e3ea;
   --color-border-strong: #bfd1dc;
-  --color-brand-primary: #007bff;
-  --color-brand-primary-hover: #0069d9;
-  --color-link: #007bff;
+
+  --color-brand-primary: #0f8b8d;
+  --color-brand-primary-hover: #0d7a7c;
+  --color-link: #137cbd;
   --color-danger: #d9534f;
 
   --space-1: 4px;
@@ -26,7 +29,6 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
-  --radius-2xl: 20px;
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;

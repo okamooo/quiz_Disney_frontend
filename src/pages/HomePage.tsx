@@ -13,14 +13,36 @@ const HomePage = () => {
   const [selectedQuizMode, setSelectedQuizMode] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showGuestAlert, setShowGuestAlert] = useState(false);
 
   const userId = localStorage.getItem("userId") || "";
-  const userName = localStorage.getItem("userName") || "ゲスト";
 
   useEffect(() => {
     const fetchHomeData = async () => {
       if (!userId) {
-        setError("ログイン情報が見つかりません。");
+        // ゲスト用デフォルトデータ
+        setHomeData({
+          userId: "GUEST",
+          userName: "ゲスト",
+          welcomeMessage: "夢と魔法（と念能力）の世界へようこそ！",
+          quizModes: [
+            {
+              quizMode: "mode1",
+              quizModeLabel: "選択問題",
+              quizStartUrl: "/api/v1/quiz/start/select",
+              isAvailable: true,
+            },
+            {
+              quizMode: "mode2",
+              quizModeLabel: "並べ替え問題",
+              quizStartUrl: "/api/v1/quiz/start/sort",
+              isAvailable: false,
+            },
+          ],
+          learningHistories: [],
+          hasAvailableQuiz: true,
+        });
+        setSelectedQuizMode("mode1");
         setIsLoading(false);
         return;
       }
@@ -28,6 +50,9 @@ const HomePage = () => {
         setIsLoading(true);
         const data = await getHomeData(userId);
         setHomeData(data);
+        if (data.userName) {
+          localStorage.setItem("userName", data.userName);
+        }
         if (data.quizModes && data.quizModes.length > 0) {
           setSelectedQuizMode(data.quizModes[0].quizMode);
         }
@@ -52,6 +77,11 @@ const HomePage = () => {
     (selectedQuizModeData?.isAvailable ?? false);
 
   const handleQuizStart = () => {
+    if (!userId || userId === "") {
+      setShowGuestAlert(true);
+      return;
+    }
+
     if (!selectedQuizModeData || !homeData) return;
 
     navigate("/quiz/start", {
@@ -61,11 +91,6 @@ const HomePage = () => {
         userName: homeData.userName,
       },
     });
-  };
-
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
   };
 
   if (isLoading)
@@ -84,11 +109,7 @@ const HomePage = () => {
 
   return (
     <main className="home-page">
-      <CommonHeader
-        userId={homeData.userId || userId}
-        userName={homeData.userName || userName}
-        onLogout={handleLogout}
-      />
+      <CommonHeader />
 
       <QuizModeSection
         quizModes={homeData.quizModes || []}
@@ -98,9 +119,45 @@ const HomePage = () => {
         onQuizStart={handleQuizStart}
       />
 
-      <LearningHistoryList
-        learningHistories={homeData.learningHistories || []}
-      />
+      <div className="learning-history-wrapper">
+        <LearningHistoryList
+          learningHistories={homeData.learningHistories || []}
+        />
+        <div className="coming-soon-overlay">
+          <span className="coming-soon-text">Coming Soon,,,</span>
+        </div>
+      </div>
+
+      {/* ヒソカの警告ポップアップ */}
+      {showGuestAlert && (
+        <div className="guest-alert-overlay">
+          <div className="guest-alert">
+            <p className="guest-alert__message">
+              「通さないよ♣
+              <br />
+              ってか通れないだろ？」
+              <br />
+              <span>ユーザー登録をしてください</span>
+            </p>
+            <div className="guest-alert__actions">
+              <button
+                type="button"
+                className="guest-alert__button primary"
+                onClick={() => navigate("/register")}
+              >
+                ユーザー登録へ
+              </button>
+              <button
+                type="button"
+                className="guest-alert__button secondary"
+                onClick={() => setShowGuestAlert(false)}
+              >
+                閉じる
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };

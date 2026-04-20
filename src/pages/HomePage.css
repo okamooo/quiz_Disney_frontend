@@ -1,6 +1,6 @@
-﻿.home-page {
+.home-page {
   --section-gap: 30px;
-  --header-offset: 74px;
+  --header-offset: 100px;
   width: min(1200px, calc(100vw - 32px));
   margin: 0 auto;
   padding: calc(var(--header-offset) + var(--section-gap)) 0 48px;
@@ -159,6 +159,36 @@
   }
 }
 
+.learning-history-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.coming-soon-text {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #12344d;
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+}
+
 /* ハンバーガーメニューのスタイル */
 .hamburger-menu {
   position: fixed;
@@ -266,3 +296,66 @@
   border-radius: 0;
 }
 
+/* ヒソカの警告ポップアップ (ライトテーマ版) */
+.guest-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+}
+
+.guest-alert {
+  background: #ffffff;
+  border: 1px solid #d8e3ea;
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.guest-alert__message {
+  font-size: 1.2rem;
+  color: #12344d;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.guest-alert__message span {
+  display: block;
+  font-size: 0.9rem;
+  color: #5f7a87;
+  margin-top: 8px;
+}
+
+.guest-alert__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guest-alert__button {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.guest-alert__button.primary {
+  background-color: #0f8b8d;
+  color: white;
+}
+
+.guest-alert__button.secondary {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+}

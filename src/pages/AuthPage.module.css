@@ -1,10 +1,15 @@
-﻿.authPage {
+.authPageContainer {
   min-height: 100vh;
+  background-color: #f4f8fa;
+}
+
+.authPage {
+  min-height: calc(100vh - 74px);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 72px 16px 32px;
-  background-color: #2a2a2a;
+  padding: 120px 16px 48px;
+  background-color: #f4f8fa;
 }
 
 .card {
