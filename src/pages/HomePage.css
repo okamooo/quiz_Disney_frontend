@@ -1,6 +1,6 @@
 .home-page {
   --section-gap: 30px;
-  --header-offset: 74px;
+  --header-offset: 100px;
   width: min(1200px, calc(100vw - 32px));
   margin: 0 auto;
   padding: calc(var(--header-offset) + var(--section-gap)) 0 48px;

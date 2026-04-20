@@ -1,6 +1,6 @@
 .question-page {
   min-height: 100vh;
-  padding: calc(74px + var(--space-6)) var(--space-4) calc(96px + var(--space-6));
+  padding: calc(74px + var(--space-12)) var(--space-4) calc(96px + var(--space-6));
   background:
     radial-gradient(circle at top left, #e9f6ff 0%, transparent 35%),
     linear-gradient(180deg, #f4fbff 0%, var(--color-background-page) 100%);

@@ -1,6 +1,6 @@
 .quiz-result-page {
   min-height: 100vh;
-  padding: calc(74px + var(--space-8)) var(--space-4) var(--space-8);
+  padding: calc(74px + var(--space-12)) var(--space-4) var(--space-8);
   background:
     radial-gradient(circle at top left, #e9f6ff 0%, transparent 35%),
     linear-gradient(180deg, #f4fbff 0%, var(--color-background-page) 100%);

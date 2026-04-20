@@ -6,9 +6,9 @@
 .authPage {
   min-height: calc(100vh - 74px);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 72px 16px 32px;
+  padding: 120px 16px 48px;
   background-color: #f4f8fa;
 }
 
