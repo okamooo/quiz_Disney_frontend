@@ -5,12 +5,18 @@
 }
 
 html {
-  font-family: 'Georgia', 'Times New Roman', "Hiragino Mincho ProN", "Yu Mincho", serif; /* Elegant magical serif font */
-  line-height: 1.6;
+  font-family:
+    "Hiragino Sans",
+    "Noto Sans JP",
+    "Yu Gothic UI",
+    sans-serif;
+  line-height: 1.5;
   font-weight: var(--font-weight-normal);
-  color-scheme: dark;
+
+  color-scheme: light;
   background-color: var(--color-background-page);
   color: var(--color-text-primary);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,60 +27,55 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--color-background-page);
-  color: var(--color-text-primary);
-  /* A magical sparkly background pattern could go here, but we will use radial gradients in components */
 }
 
 a {
   color: var(--color-link);
   text-decoration: none;
-  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 a:hover {
-  color: #8be0ff;
-  text-shadow: 0 0 8px rgba(63, 198, 255, 0.5);
+  text-decoration: underline;
 }
 
 button,
 input,
 textarea,
 select {
-  font-family: inherit; /* inherit the elegant font */
+  font-family: inherit;
 }
 
 button {
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
 input {
   width: 100%;
-  padding: 12px;
+  padding: 8px 12px;
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-sm);
-  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background-surface);
   color: var(--color-text-primary);
-  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input:focus-visible,
-button:focus-visible,
-a:focus-visible {
-  outline: none;
-  border-color: var(--color-link);
-  box-shadow: 0 0 0 3px rgba(63, 198, 255, 0.3);
+input:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
 }
 
-/* Remove default light theme styles to keep the Disney+ dark theme consistent */
 @media (prefers-color-scheme: light) {
-  /* We enforce dark theme for the magical aesthetic */
+  html {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  body {
+    background-color: #ffffff;
+  }
 }

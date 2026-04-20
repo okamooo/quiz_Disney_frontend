@@ -29,6 +29,7 @@ const QuestionPage = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
   const [showGonPopup, setShowGonPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [answerResult, setAnswerResult] = useState<{
     correctAnswer: string;
@@ -52,13 +53,14 @@ const QuestionPage = () => {
   );
 
   const handleAnswer = async () => {
-    if (selectedChoiceId === null || isAnswered) return;
+    if (selectedChoiceId === null || isAnswered || isSubmitting) return;
 
     const selectedChoice = currentQuestion.choices.find(
       (c) => c.choiceId === selectedChoiceId,
     );
 
     try {
+      setIsSubmitting(true);
       const response = await answerQuiz(sessionId, {
         questionId: currentQuestion.questionId,
         action: "ANSWER",
@@ -95,17 +97,17 @@ const QuestionPage = () => {
       setIsAnswered(true);
     } catch (err) {
       console.error("Answer submission error:", err);
-      alert(
-        "回答の送信に失敗しました。詳細: " +
-          (err instanceof Error ? err.message : "不明なエラー"),
-      );
+      alert("回答の送信に失敗しました。");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleSkip = async () => {
-    if (isAnswered) return;
+    if (isAnswered || isSubmitting) return;
 
     try {
+      setIsSubmitting(true);
       const response = await answerQuiz(sessionId, {
         questionId: currentQuestion.questionId,
         action: "SKIP",
@@ -142,6 +144,8 @@ const QuestionPage = () => {
     } catch (err) {
       console.error("Skip error:", err);
       alert("スキップの送信に失敗しました。");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -202,7 +206,7 @@ const QuestionPage = () => {
         />
       </div>
       <SubmitAnswerBar
-        isEnabled={selectedChoiceId !== null}
+        isEnabled={selectedChoiceId !== null && !isSubmitting}
         isAnswered={isAnswered}
         onAnswer={handleAnswer}
         onSkip={handleSkip}
@@ -217,14 +221,14 @@ const QuestionPage = () => {
             <p className="gon-popup__message">
               もうこれで終わってもいい
               <br />
-              だからありったけを・・・
+              だからありったけを・ ・・
             </p>
             <button
               type="button"
               className="gon-popup__button"
               onClick={proceedToNext}
             >
-              最初はグー・・・ジャン・・ケン・・
+              最初はグー
             </button>
           </div>
         </div>
