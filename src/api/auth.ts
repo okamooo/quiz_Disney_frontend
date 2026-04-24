@@ -1,6 +1,7 @@
 import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../types/authModels';
 
-const API_BASE_URL = 'http://localhost:8080/api/v1/quiz';
+// const API_BASE_URL = 'http://localhost:8080/api/v1/quiz';
+const API_BASE_URL = 'http://3.112.81.98:8080/api/v1/quiz';
 
 export const login = async (request: LoginRequest): Promise<LoginResponse> => {
   const response = await fetch(`${API_BASE_URL}/login`, {
