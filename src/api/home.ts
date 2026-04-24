@@ -1,7 +1,8 @@
 import { HomeData } from "../types/home";
 
 // 本来は .env などから取得しますが、まずはローカルホストを直書きします
-const BASE_URL = "http://localhost:8080/api/v1/quiz";
+// const BASE_URL = "http://localhost:8080/api/v1/quiz";
+const BASE_URL = "http://3.112.81.98:8080/api/v1/quiz";
 
 /**
  * ホーム画面に必要なデータを取得する
